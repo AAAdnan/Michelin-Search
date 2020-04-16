@@ -1,0 +1,56 @@
+{
+  "name": "express-server-render-starter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A starter project for server-rendered Express applications using Nunjucks, TailwindCSS and Postgres",
+  "main": "bin/start.js",
+  "scripts": {
+    "test": "xo",
+    "lint": "xo",
+    "format": "xo --fix",
+    "//prestart": "yarn build",
+    "start": "node ./bin/start.js",
+    "predev": "yarn tw",
+    "dev": "nodemon ./bin/start.js",
+    "tw": "tailwind build src/styles/app.css -o public/app.css",
+    "purge": "purgecss -c purgecss.config.js -o ./public",
+    "build": "yarn tw && yarn purge",
+    "seed": "node ./bin/seed.js",
+    "migrate": "node ./bin/migrate.js",
+    "migrate:create": "migrate create --migrations-dir='./src/migrations'"
+  },
+  "keywords": [
+    "express",
+    "nunjucks",
+    "tailwindcss"
+  ],
+  "author": "Hugo Di Francesco",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "client-sessions": "^0.8.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "migrate": "^1.6.2",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.1",
+    "pg": "^8.0.2",
+    "sql-template-strings": "^2.2.2",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3",
+    "purgecss": "^2.1.2",
+    "tailwindcss": "^1.2",
+    "xo": "^0.29.1"
+  },
+  "xo": {
+    "prettier": true,
+    "space": true,
+    "rules": {}
+  },
+  "nodemonConfig": {
+    "ext": "js,html"
+  }
+}
