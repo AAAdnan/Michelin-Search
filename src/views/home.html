@@ -15,6 +15,20 @@
         Login
       </a>
     </div>
+    <div class="flex items-center justify-between">
+      <form>
+        <select name="city">
+          {% for city in cities %}
+            {%if city.key === selectedCity %}
+            <option value="{{ city.key }}" selected >{{ city.name }}</option>
+            {%else %}
+            <option value="{{ city.key }}">{{ city.name }}</option>
+            {%endif %}
+          {% endfor %} 
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
   </div>
 </section>
 {% endblock %}
