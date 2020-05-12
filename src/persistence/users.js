@@ -11,7 +11,9 @@ module.exports = {
         RETURNING id, email;
       `);
 
+
       const [user] = rows;
+   
       return user;
     } catch (error) {
       if (error.constraint === 'users_email_key') {
@@ -26,5 +28,9 @@ module.exports = {
     SELECT * FROM users WHERE email=${email} LIMIT 1;
     `);
     return rows[0];
-  }
+  },
+  async list() {
+    const {rows} = await db.query('SELECT * FROM users')
+    return rows;
+}
 };

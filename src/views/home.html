@@ -2,22 +2,15 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<section class="w-full max-w-xl mx-auto mt-10 pt-10 container">
+<section class=" w-full max-w-xl mx-auto mt-10 pt-10 container">
   <div class="bg-white shadow-md rounded px-8 pt-6 pb-6">
-    <p class="text-md mb-4">
+    <h1>
       Welcome to Michelin Search
-    </p>
-    <div class="flex items-center justify-between">
-      <a
-        href="/login"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-      >
-        Login
-      </a>
-    </div>
+    </h1>
     <div class="flex items-center justify-between">
       <form>
-        <select name="city">
+        <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline m-8
+       " name="city">
           {% for city in cities %}
             {%if city.key === selectedCity %}
             <option value="{{ city.key }}" selected >{{ city.name }}</option>
@@ -26,9 +19,12 @@
             {%endif %}
           {% endfor %} 
         </select>
-        <button type="submit">Submit</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Search</button>
     </form>
+    {{ printRequest(selectedCity, restaurants) }}
+    
     </div>
+ 
   </div>
 </section>
 {% endblock %}

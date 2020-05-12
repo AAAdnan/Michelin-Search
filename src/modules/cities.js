@@ -1,6 +1,9 @@
-const cities = [ { name: 'London', key: 'ldn' }, { name: 'New York', key: 'ny'}]
+async function getCities (locations) {
+    const uniqueLocations = new Set(locations);
+    const cities = Array.from(uniqueLocations).map((location) => {
+        return { name: location, key: location.toLowerCase() }
+    })
 
-async function getCities () {
     return cities;
 }
 

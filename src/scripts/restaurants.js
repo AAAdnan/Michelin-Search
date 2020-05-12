@@ -1,6 +1,5 @@
 const Scraper = require('../modules/scraper');
-// const DBUploader = require('./dbUploader');
-
+const Restaurants  = require('../persistence/restaurants');
 
 const getRestaurants = async () => {
   const scraper = new Scraper();
@@ -10,8 +9,6 @@ const getRestaurants = async () => {
             console.log('Scraping attempt:', i + 1);
 
         await scraper.run();
-        console.log(`Found ${scraper.getRestaurants().length} restaurants`);
-        console.log(scraper.getRestaurants())
 
         scraper.removeDuplicates();
         console.log(`Duplicates removed, ${scraper.getRestaurants().length} restaurants remained`);
@@ -24,7 +21,27 @@ const getRestaurants = async () => {
         }
     }
   
-  return scraper.getRestaurants();
+    return scraper.getRestaurants()
+
 }
 
-getRestaurants();
+const main = async () => {
+
+  try{
+    const restaurants = await getRestaurants();
+
+    const insertedRestaurants = await Restaurants.bulkCreate(restaurants);
+  
+    console.log(`Inserted Restaurants ${insertedRestaurants.length}  `);
+  }
+  catch(error){
+    console.log(error.stack)
+    process.exit(1)
+  }
+
+}
+
+main()
+
+
+
