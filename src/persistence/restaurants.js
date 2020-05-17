@@ -31,8 +31,10 @@ module.exports = {
       }
     },
 
-    async list() {
-        const { rows } = await db.query('SELECT * FROM restaurants')
+    async list(city) {
+      
+        const query = city ? sql`SELECT * FROM restaurants WHERE location ILIKE ${city}` : 'SELECT * FROM restaurants'
+        const { rows } = await db.query(query)
         return rows;
     }
 }

@@ -6,6 +6,11 @@ async function create(email, password) {
   return User.create(email, hashedPassword);
 }
 
+async function find(email) {
+  const user = User.find(email);
+  return user;
+}
+
 module.exports = {
-  create
+  create, find
 };

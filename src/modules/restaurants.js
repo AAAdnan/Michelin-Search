@@ -1,8 +1,8 @@
 const Restaurant  = require('../persistence/restaurants');
 
-const list = async () => {
+const list = async (city) => {
 
-  const results = await Restaurant.list();
+  const results = await Restaurant.list(city);
 
   return results;
 

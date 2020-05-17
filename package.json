@@ -41,6 +41,7 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "sql-template-strings": "^2.2.2",
+    "typeface-roboto": "0.0.75",
     "uuid": "^7.0.3"
   },
   "devDependencies": {

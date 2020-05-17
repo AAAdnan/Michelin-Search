@@ -2,17 +2,34 @@
 
 {% block content %}
 <section class="w-full mx-auto mt-10 container">
-  {% if error %}
+  {% if emailError %}
   <div class="max-w-md mx-auto">
     <div class="bg-red-100  border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
       <p class="font-bold">Error</p>
-      <p class="text-sm">Email/Password not valid</p>
+      <p class="text-sm">Please input a valid email and password</p>
+    </div>
+  </div>
+  {% endif %}
+  {% if duplicateUserError %}
+  <div class="max-w-md mx-auto">
+    <div class="bg-red-100  border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+      <p class="font-bold">Error</p>
+      <p class="text-sm">Account already created</p>
+    </div>
+  </div>
+  {% endif %}
+ 
+  {% if passwordError %}
+  <div class="max-w-md mx-auto">
+    <div class="bg-red-100  border-t border-b border-red-500 text-red-700 px-4 py-3" role="alert">
+      <p class="font-bold">Error</p>
+      <p class="text-sm">Password must be at least six characters</p>
     </div>
   </div>
   {% endif %}
   <div class="w-full mt-10 max-w-xs mx-auto">
     <form
-      action="/login"
+      action="/signup"
       method="post"
       class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
@@ -48,7 +65,7 @@
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
           >
-          Sign In
+          Sign Up
         </buttonclass="bg-blue-500>
       </div>
     </formclass="bg-white>
