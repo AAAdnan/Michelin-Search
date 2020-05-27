@@ -25,7 +25,7 @@ module.exports = {
 
       request.session.sessionId = sessionId;
 
-      return response.redirect('/dashboard');
+      return response.redirect('/');
     } catch (error) {
       console.error(`POST /login >> Error: ${error.stack}`);
       return response

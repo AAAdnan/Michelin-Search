@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class=" w-full max-w-xl mx-auto mt-10 pt-10 container bg-white shadow-md rounded">
+  <div>
+      Uploaded Restaurants
+  </div>
+  <h1>File Upload</h1>
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="myImage" />
+    <button type="submit" class="btn">Submit</button>
+    {{ msg }}
+  </form>
+
+  <br>
+</section>
+{% endblock %}

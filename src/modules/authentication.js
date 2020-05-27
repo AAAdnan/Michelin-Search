@@ -16,5 +16,8 @@ module.exports = {
 
     const sessionId = await Session.create(user.id);
     return sessionId;
+  },
+  async deleteSession(sessionId) {
+    await Session.delete(sessionId)
   }
 };

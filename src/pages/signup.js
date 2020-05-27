@@ -1,11 +1,26 @@
 const User  = require('../modules/users');
+const auth = require('../modules/authentication');
 
 function validUser(user) {
   const validEmail = typeof user.email === 'string' && user.email.trim() != '';
 
   const validPassword = typeof user.password == 'string' && user.password.trim() != '' && user.password.trim().length >= 6;
 
-  return validEmail & validPassword;
+  return validEmail && validPassword;
+}
+
+function validPassword(user) {
+  const validPassword = user.password === user.passwordTwo;
+
+  return validPassword
+}
+
+const redirectHome = (request, response, next) => {
+  if (req.session.userId) {
+      res.redirect('/home')
+  } else {
+      next()
+  }
 }
 
 module.exports = {
@@ -15,7 +30,7 @@ module.exports = {
 
   async post(request, response) {
   try {
-    const { email, password } = request.body;
+    const { email, password, passwordTwo } = request.body;
 
     if (!email || !password  ) {
       return response.render('signup.html', {
@@ -26,20 +41,34 @@ module.exports = {
   
     const user = request.body;
 
-    const findUser = await User.find(user.email);
+    if(!validPassword(user)) {
+      return response.render('signup.html', {
+        passwordConfirmError: true,
+      })
+    }
 
-    if (findUser) {
-      return response.render('signup.html'), {
+    if(!validUser(user)){
+      return response.render('signup.html', {
+          passwordError: true,
+        }
+      )
+    } 
+     const findUser = await User.find(user.email);
+
+     if (findUser) {
+      return response.render('signup.html', {
         duplicateUserError: true,
-        form: {email, password}
-      }
-    } else {
+      })
+    } 
       const newUser = await User.create(user.email, user.password)
+      const sessionId = await auth.createSession(email, password);
+      request.session.sessionId = sessionId;
+
 
       console.log(`created ${newUser}`)
 
-      return response.redirect('/dashboard');
-    }
+      return response.redirect('/');
+
 
   }
     catch (error) {

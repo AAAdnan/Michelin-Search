@@ -26,15 +26,22 @@
         <li class="mr-6 py-4">
           <a class="text-red-600 hover:text-red-800" href="/">Home</a>
         </li>
-        <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/login">Login</a>
-        </li>
+        {% if not userId %}
         <li class="mr-6 py-4">
           <a class="text-red-600 hover:text-red-800" href="/signup">Sign Up</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/login">Personal Folder</a>
+          <a class="text-red-600 hover:text-red-800" href="/login">Login</a>
         </li>
+        {%endif%}
+        {% if userId %}
+        <li class="mr-6 py-4">
+          <a class="text-red-600 hover:text-red-800" href="/logout">Logout</a>
+        </li>
+        <li class="mr-6 py-4">
+          <a class="text-red-600 hover:text-red-800" href="/folder">Michelin Diary</a>
+        </li>
+        {%endif%}
       </ul>
     </nav>
   </div>
