@@ -46,6 +46,7 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1",
     "nodemon": "^2.0.3",
     "purgecss": "^2.1.2",
     "tailwindcss": "^1.2",

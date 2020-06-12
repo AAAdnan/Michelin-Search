@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  .image-preview {
+    width: 300px;
+    min-height: 100px;
+    border: 2px solid #dddddd;
+    margin-top: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #cccccc;
+  }
+
+  .image-preview__image {
+    display: none;
+    width: 100%;
+  }
+
+  #custom-button{
+    padding: 10px;
+    color: white;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+  }
+
+  #custom-button:hover {
+    background-color: #DC143C;
+  }
+
+  #custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: auto
+  }
+</style>
+<div class="container mb-8 mx-auto flex items-center w-full bg-red-100">
+  <div class="w-full bg-white rounded shadow-lg p-8 m-4 mt-20 md:max-w-sm md:mx-auto">
+    <h1 class="block w-full text-center text-3xl text-grey-darkest mb-6">Upload restaurant</h1>
+    <form id="form-id" action="/uploadRestaurant" method="post">
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="name">Restaurant Name</label>
+          <input class="border py-2 px-3 text-grey-darkest md:mr-2" type="text" name="name" id="name">
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="city">City</label>
+          <input class="border py-2 px-3 text-grey-darkest md:mr-2" type="text" name="location" id="location">
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="grid-state">
+            Rating
+          </label>
+          <div class="relative">
+            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="link">Link</label>
+          <input class="border py-2 px-3 text-grey-darkest md:mr-2" type="text" name="link" id="link">
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="genre">Type</label>
+          <input class="border py-2 px-3 text-grey-darkest md:mr-2" type="text" name="type" id="type">
+        </div>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+          <input class="mt-8" type="file" name="inpFile" id="inpFile" hidden="hidden"  >
+          <input class="mt-8" type="hidden" name="imageURI" id="imageURI" hidden="hidden"  >
+          <button type="button" id="custom-button" class="bg-red-300 mt-8 mb-4">Choose a file</button>
+          <span id="custom-text">No file chosen, yet</span>
+          <div class="image-preview" id="imagePreview" accept="image/png, image/jpeg, image/jpg">
+            <img src="" alt="Image Preview" class="image-preview__image">
+            <span class="image-preview__default-text">Image Preview</span>
+          </div>
+        </div>  
+      <br>
+        {{ msg }}
+      <br>
+        <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+  const form = document.getElementById('form-id');
+  const inpFile = document.getElementById("inpFile");
+  const previewContainer = document.getElementById("imagePreview");
+  const previewImage = previewContainer.querySelector(".image-preview__image");
+  const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+  const imageURI = document.getElementById('imageURI');
+  const customBtn = document.getElementById("custom-button");
+  const customTxt = document.getElementById("custom-text");
+
+  customBtn.addEventListener("click", function() {
+    inpFile.click()
+  })
+
+  inpFile.addEventListener("change", function() {
+
+
+  const file = this.files[0];
+
+  if(inpFile.value) {
+    customTxt.innerHTML = inpFile.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/);
+  } else {
+    customTxt.innerHTML = "No file chosen, yet";
+  }
+
+
+    if (file) {
+      const reader = new FileReader();
+
+      previewDefaultText.style.display = "none";
+      previewImage.style.display = "block";
+
+      reader.addEventListener("load", function(){
+
+        previewImage.setAttribute("src", this.result);
+
+        imageURI.value = this.result;
+  
+      })
+
+
+      reader.readAsDataURL(file); 
+
+    } else {
+      previewDefaultText.style.display = "null";
+      previewImage.style.display = "null";
+      previewImage.setAttribute("src", "");
+    }
+  })
+
+
+</script>
+</div>
+{% endblock %}

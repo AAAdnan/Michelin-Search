@@ -29,6 +29,7 @@ module.exports = {
     `);
     return rows[0];
   },
+  
   async list() {
     const {rows} = await db.query('SELECT * FROM users')
     return rows;

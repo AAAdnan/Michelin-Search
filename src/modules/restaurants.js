@@ -8,6 +8,15 @@ const list = async (city) => {
 
 }
 
+const create = async (restaurant) => {
+  
+  const newRestaurant = await Restaurant.create(restaurant)
+
+  return newRestaurant;
+
+}
+
 module.exports={
-    list
+    list,
+    create
 }

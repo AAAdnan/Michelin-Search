@@ -30,7 +30,26 @@ module.exports = {
         throw error;
       }
     },
+    async create(restaurant) 
+    {
+      try {
 
+        let { name, location, rating, link, type, image } = restaurant;
+        
+        const query = sql`
+        INSERT INTO restaurants(id, name, location, rating, link, type, image )
+            VALUES 
+            (${uuidv4()}, ${name}, ${location}, ${rating}, ${link}, ${type}, ${image})
+        `
+
+        const {rows} = await db.query(query);
+
+        return rows;
+      }
+      catch(error) {
+        throw error;
+      }
+    },
     async list(city) {
       
         const query = city ? sql`SELECT * FROM restaurants WHERE location ILIKE ${city}` : 'SELECT * FROM restaurants'

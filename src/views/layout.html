@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <div class="container mx-auto bg-pink-200 p5">
+  <div class="container w-screen mx-auto bg-pink-200 p5">
     <nav class="flex-row md:justify-between">
       <div class="flex flex-row justify-between">
         <p id="hamburgerbtn" class="md:hidden bg-pink-600">
@@ -24,22 +24,25 @@
       </div>
       <ul class="hidden md:flex md:flex-row pl-4" id="mobileMenu">
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/">Home</a>
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/">Home</a>
         </li>
         {% if not userId %}
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/signup">Sign Up</a>
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/signup">Sign Up</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/login">Login</a>
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/login">Login</a>
         </li>
         {%endif%}
         {% if userId %}
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/logout">Logout</a>
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/logout">Logout</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-600 hover:text-red-800" href="/folder">Michelin Diary</a>
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/folder">Michelin Diary</a>
+        </li>
+        <li class="mr-6 py-4">
+          <a class="text-red-500 hover:text-red-800 font-mono" href="/uploadRestaurant">Restaurant Upload</a>
         </li>
         {%endif%}
       </ul>
