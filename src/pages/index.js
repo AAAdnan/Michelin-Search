@@ -3,7 +3,7 @@ const about = require('./about');
 const dashboard = require('./dashboard');
 const signup = require('./signup');
 const logout = require('./logout')
-const folder = require('./folder');
+const review = require('./review');
 const uploadRestaurant = require('./uploadRestaurant');
 
 
@@ -12,7 +12,7 @@ module.exports = {
   about,
   signup,
   logout,
-  folder,
+  review,
   uploadRestaurant,
   dashboard
 };

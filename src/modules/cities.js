@@ -12,6 +12,8 @@ async function getCities (locations) {
     return cities;
 }
 
+
+
 module.exports={
     getCities
 }

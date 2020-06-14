@@ -3,6 +3,9 @@ const { createReview } = require('../modules/reviews')
 const { sessionId } = require('../pages/login')
 const authentication = require('../modules/authentication');
 const userId = require('../pages/dashboard');
+const { getCities } = require('../modules/cities');
+const { getNames } = require('../modules/names');
+const { list } = require('../modules/restaurants');
 
 module.exports = {
   async get (request, response) {
@@ -14,7 +17,19 @@ module.exports = {
 
   let userId = session.userId;
 
-  return response.render('folder.html', { userId });
+  const { city } = request.query;
+
+  const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
+
+const cities = await getCities(
+  allRestaurants.map(element => element.location )
+  );
+
+  const names = await getNames(
+    allRestaurants.map(element => element.name)
+  )
+
+  return response.render('review.html', { userId, cities , names, restaurants: allRestaurants } );
 },
     async post(request, response){
 

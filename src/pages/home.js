@@ -1,5 +1,5 @@
-const { getCities } = require('../modules/cities')
-const { list } = require('../modules/restaurants')
+const { getCities } = require('../modules/cities');
+const { list } = require('../modules/restaurants');
 const authentication = require('../modules/authentication');
 
 module.exports = async function (request, response) {
@@ -8,7 +8,7 @@ module.exports = async function (request, response) {
   const session = sessionId ? await authentication.getSession(sessionId) : {};
   const { city } = request.query;
 
-const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
+  const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
 
 const cities = await getCities(
   allRestaurants.map(element => element.location )

@@ -1,7 +1,9 @@
 const userId = require('../pages/dashboard');
 const authentication = require('../modules/authentication');
-const { create } = require('../modules/restaurants')
-const { upload } = require('../modules/folder');
+const { list } = require('../modules/restaurants');
+const { create } = require('../modules/restaurants');
+
+// const cloudinary = require("cloudinary").v2;
 
   module.exports = {
     async get (request, response) {
@@ -16,9 +18,11 @@ const { upload } = require('../modules/folder');
 
     async post(request, response) {
 
-      const restaurant = request.body;
+      // const result = await cloudinary.uploader.upload(req.file.path)
 
-      console.log(restaurant)
+      // console.log(result);
+
+      const restaurant = request.body;
 
       let newRestaurant = await create(restaurant)
 
