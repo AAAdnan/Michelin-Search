@@ -4,11 +4,12 @@ module.exports.up = async function (next) {
   const client = await db.connect();
 
   await client.query(`
-  CREATE TABLE IF NOT EXISTS reviews (
+  CREATE TABLE IF NOT EXISTS reviews (  
     id uuid PRIMARY KEY,
     restaurant_id uuid references restaurants(id),
     user_id uuid references users(id) on delete cascade,
-    notes text,
+    review text,
+    description text[],
     images text[]
   );
  

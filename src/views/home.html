@@ -21,9 +21,6 @@
         </select>
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Search</button>
     </form>
-      <div>
-        <div class="md:flex-1 p-4 rounded shadow-lg bg-white border-b border-r border-grey-dark">
-      
         {%if selectedCity %}
     
         {% for item in restaurants %}
@@ -32,20 +29,16 @@
           <img src="{{ item.img }}" alt="Sunset in the mountains">
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">{{ item.name }}</div>
-            <a class="text-gray-700 text-base">
+            <a href="{{ item.link }}" target="_blank" class="text-gray-700 text-base">
               {{ item.link }}
             </a>
           </div>
-        </div>
-      
+        </div>   
         {% endfor %} 
         {%else%}
-
-        <div class="hidden"></div>
       {%endif %}
 
-      </div>
-    </div>
+   
   </div>
 </div>
 {% endblock %}

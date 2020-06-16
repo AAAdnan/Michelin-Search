@@ -9,6 +9,7 @@ const signup = require('./pages/signup');
 const review = require('./pages/review');
 const upload = require('./pages/upload')
 const uploadRestaurant = require('./pages/uploadRestaurant');
+const reviews = require('./pages/reviews');
 
 const router = new Router();
 
@@ -22,6 +23,7 @@ router.get('/uploadRestaurant', uploadRestaurant.get)
 router.post('/uploadRestaurant', multerRestaurant, uploadRestaurant.post)
 router.post('/signup', signup.post)
 router.post('/login', login.post);
+router.get('/reviews', reviews.get)
 router.get('/review', review.get)
 router.post('/upload', upload.post)
 router.post('/review', uploadMiddleware, review.post)
