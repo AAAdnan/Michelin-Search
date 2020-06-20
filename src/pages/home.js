@@ -14,7 +14,7 @@ const cities = await getCities(
   allRestaurants.map(element => element.location )
   );
 
-  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session.userId }  );
+  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId }  );
 };
  
 

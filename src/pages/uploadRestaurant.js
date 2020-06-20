@@ -26,8 +26,12 @@ require('../modules/uploadRestaurants');
   
         let newRestaurant = await create(restaurant, url)
 
+        const sessionId = request.session.sessionId;
+
+        const session = sessionId ? await authentication.getSession(sessionId) : {};
+
         if (newRestaurant) {
-          return response.render('uploadRestaurant.html', { successMessage: true });
+          return response.render('uploadRestaurant.html', { successMessage: true, userId: session.userId });
         }
       }
       catch (error) {

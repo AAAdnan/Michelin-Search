@@ -2,17 +2,27 @@ const { upload, base64_encode } = require('../modules/multer');
 
 module.exports = {
     async post(request,response) {
-                if (request.file === undefined){
-                    console.log('unselected' + request.file)
-                    response.render('review.html', {
-                        msg: 'Error: No File Selected'
-                    });
-                } else {
-                    const encoded = await base64_encode(request.file.path);
-                    response.render('review.html', {
-                        msg: 'File Uploaded!',
-                        file: encoded
-                    })
-                }
-         }
+
+        try {
+            const result = await cloudinary.uploader.upload(request.file.path)
+    
+            const url = result.url;
+    
+            const restaurant = request.body;
+    
+            const sessionId = request.session.sessionId;
+    
+            const session = sessionId ? await authentication.getSession(sessionId) : {};
+    
+            if (newRestaurant) {
+              return response.render('review.html', { successMessage: true, userId: session.userId });
+            }
+          }
+          catch (error) {
+            console.error(`POST /login >> Error: ${error.stack}`);
+            return response
+              .status(500)
+              .render('500.html', {message: error.toString()});
+        }
+    }
 }

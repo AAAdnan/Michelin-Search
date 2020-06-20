@@ -4,9 +4,12 @@ const Session = require('../persistence/sessions.js');
 const Review = require('../persistence/reviews');
 
 async function createReview(review, userId) {
-  const newReview = await Review.create(review, userId)
 
-  return newReview;
+  console.log(review)
+
+  // const newReview = await Review.create(review, userId)
+
+  // return newReview;
 };
 
 module.exports = {

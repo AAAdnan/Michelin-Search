@@ -11,6 +11,7 @@
     <form>
         <select class="appearance-none bg-white border border-gray-400 hover:border-gray-500 px-4 py-4 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline m-8
        " name="city">
+       <option default>Select City</option>
           {% for city in cities %}
             {%if city.key === selectedCity %}
             <option value="{{ city.key }}" selected >{{ city.name }}</option>
