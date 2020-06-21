@@ -35,9 +35,11 @@ const cities = await getCities(
 
       const review = request.body;
 
-      let newRestaurantReview = await create(review);
+      console.log(review)
 
-      let newReview = await createReview(review, userId);
+      // let newRestaurantReview = await create(review);
+
+      // let newReview = await createReview(review, userId);
 
     }
 }
