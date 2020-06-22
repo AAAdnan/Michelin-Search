@@ -9,7 +9,9 @@ module.exports.up = async function (next) {
     restaurant_id uuid references restaurants(id),
     user_id uuid references users(id) on delete cascade,
     review text,
-    description text[],
+    courses INT,
+    meals text,
+    rating INT,
     images text[]
   );
  

@@ -3,12 +3,12 @@ const {v4: uuidv4} = require('uuid');
 const db = require('./db');
 
 module.exports = {
-  async create( { name, notes, images }, user_id ) {
+  async create( restaurant_id, description, courses, meals, rating, urls ) {
     const id = uuidv4();
     try {
       const {rows} = await db.query(sql`
-      INSERT INTO reviews (id, restaurant_id, user_id, notes, images)
-        VALUES (${id}, name,  ${restaurant_id}, ${user_id}, ${notes}, ${images})
+      INSERT INTO reviews (id, restaurant_id, review, courses, meals, rating)
+        VALUES (${id}, ${restaurant_id}, ${description}, ${courses}, ${meals}, ${rating}, ${urls})
         RETURNING id, restaurant_id;
       `);
 

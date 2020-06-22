@@ -50,11 +50,16 @@ module.exports = {
         throw error;
       }
     },
-    async list(city) {
-      
+    async list(city) 
+    {
         const query = city ? sql`SELECT * FROM restaurants WHERE location ILIKE ${city}` : 'SELECT * FROM restaurants'
         const { rows } = await db.query(query)
         return rows;
+    },
+    async find(name) {
+      const query = name ? sql`SELECT * FROM restaurants WHERE name ILIKE ${name}` : 'SELECT * FROM restaurants'
+      const { rows } = await db.query(query)
+      return rows;
     }
 }
   

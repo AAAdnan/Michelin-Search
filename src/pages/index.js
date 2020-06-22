@@ -3,9 +3,9 @@ const about = require('./about');
 const dashboard = require('./dashboard');
 const signup = require('./signup');
 const logout = require('./logout')
-const review = require('./review');
-const reviews = require('./reviews');
+const review = require('./uploadReview');
 const uploadRestaurant = require('./uploadRestaurant');
+const reviews = require('./reviews');
 
 
 module.exports = {

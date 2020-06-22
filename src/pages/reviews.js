@@ -27,36 +27,8 @@ require('../modules/uploadRestaurants');
       allRestaurants.map(element => element.name)
     )
 
-    return response.render('review.html', { userId, cities , names, restaurants: allRestaurants } );
+    return response.render('reviews.html', { userId, cities , names, restaurants: allRestaurants } );
 
   },
   
-    async post(request, response) {
-
-      try {
-        const result = await cloudinary.uploader.upload(request.file.path)
-
-        const url = result.url;
-
-        const review = request.body;
-
-        //review, courses, images, meal names
-  
-        let newReview = await create(review, url)
-
-        const sessionId = request.session.sessionId;
-
-        const session = sessionId ? await authentication.getSession(sessionId) : {};
-
-        if (newReview) {
-          return response.render('uploadRestaurant.html', { successMessage: true, userId: session.userId });
-        }
-      }
-      catch (error) {
-        console.error(`POST /login >> Error: ${error.stack}`);
-        return response
-          .status(500)
-          .render('500.html', {message: error.toString()});
-    }
-  }
 }

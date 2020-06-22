@@ -1,16 +1,10 @@
 const multer = require('multer');
 const path = require('path');
-const cloudinary = require('cloudinary');
 
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET
-});
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './public/uploads')
+        cb(null, './public/restaurants')
     },
     filename: function (req, file, cb) {
         switch (file.mimetype) {

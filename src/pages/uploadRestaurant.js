@@ -4,6 +4,8 @@ const { list } = require('../modules/restaurants');
 const { create } = require('../modules/restaurants');
 const cloudinary = require("cloudinary").v2;
 require('../modules/uploadRestaurants');
+require('../modules/cloudinary');
+
 
   module.exports = {
     async get (request, response) {
@@ -18,6 +20,9 @@ require('../modules/uploadRestaurants');
     async post(request, response) {
 
       try {
+
+        console.log(request)
+
         const result = await cloudinary.uploader.upload(request.file.path)
 
         const url = result.url;

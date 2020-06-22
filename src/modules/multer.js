@@ -2,12 +2,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
 
-async function base64_encode (file, mimetype) {
-    let bitmap = await fs.readFile(file, 'utf-8');
-    let encoded = new Buffer(bitmap).toString('base64');
-    let dataURI = `data:${mimetype};base64,${encoded}`;
-    return dataURI
-}
+// async function base64_encode (file, mimetype) {
+//     let bitmap = await fs.readFile(file, 'utf-8');
+//     let encoded = new Buffer(bitmap).toString('base64');
+//     let dataURI = `data:${mimetype};base64,${encoded}`;
+//     return dataURI
+// }
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -41,9 +41,9 @@ const upload = multer({
 }).single('myImage');
 
 
+
 module.exports = {
-    upload,
-    base64_encode
+    upload
 };
 
 
