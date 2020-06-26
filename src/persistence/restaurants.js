@@ -30,16 +30,16 @@ module.exports = {
         throw error;
       }
     },
-    async create(restaurant, url) 
+    async create(restaurant, url, latitude, longitude) 
     {
       try {
 
         let { name, location, rating, link, type } = restaurant;
         
         const query = sql`
-        INSERT INTO restaurants(id, name, location, rating, link, type, img )
+        INSERT INTO restaurants(id, name, location, rating, link, type, img, lat, lng )
             VALUES 
-            (${uuidv4()}, ${name}, ${location}, ${rating}, ${link}, ${type}, ${url})
+            (${uuidv4()}, ${name}, ${location}, ${rating}, ${link}, ${type}, ${url}, ${latitude}, ${longitude})
         `
 
         const {rows} = await db.query(query);

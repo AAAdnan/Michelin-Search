@@ -14,8 +14,6 @@ const fs = require('fs');
 module.exports = {
   async get (request, response) {
 
-  let findIt = request.session.sessionId;
-
   const sessionId = request.session.sessionId;
   const session = sessionId ? await authentication.getSession(sessionId) : {};
 
@@ -54,10 +52,15 @@ const cities = await getCities(
 
       console.log(urls)
 
+      const sessionId = request.session.sessionId;
+      const session = sessionId ? await authentication.getSession(sessionId) : {};
+    
+      let userId = session.userId;
+
       const review = request.body;
       
 
-      let newReview = await createReview(review, urls);
+      let newReview = await createReview(review, urls, userId);
 
     }
 }

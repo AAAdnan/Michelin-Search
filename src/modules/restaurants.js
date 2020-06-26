@@ -8,9 +8,9 @@ const list = async (city) => {
 
 }
 
-const create = async (restaurant, url) => {
+const create = async (restaurant, url, latitude, longitude) => {
   
-  const newRestaurant = await Restaurant.create(restaurant, url)
+  const newRestaurant = await Restaurant.create(restaurant, url, latitude, longitude)
 
   return newRestaurant;
 

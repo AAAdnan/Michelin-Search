@@ -44,7 +44,7 @@ const upload = multer({
   }
 }).array('images', 6);
 
-async function createReview(review, urls) {
+async function createReview(review, urls, userId) {
 
   const { description, courses, meals, rating } = review;
 
@@ -52,9 +52,13 @@ async function createReview(review, urls) {
 
   const newRestaurantArray = await find(restaurant);
 
+  if (newRestaurantArray.length === 0) {
+    return response.render('reviews.html', { userId, cities , names, restaurants: allRestaurants } );
+  }
+
   let newRestaurant = newRestaurantArray[0].id;
 
-  const newReview = await Review.create(newRestaurant, review, courses, meals, urls)
+  const newReview = await Review.create(newRestaurant, userId, description, courses, meals, rating, urls)
 
   return newReview;
 };

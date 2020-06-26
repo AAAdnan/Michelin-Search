@@ -1,6 +1,7 @@
 const { getCities } = require('../modules/cities');
 const { list } = require('../modules/restaurants');
 const authentication = require('../modules/authentication');
+// const { map } = require('../modules/mapbox');
 
 module.exports = async function (request, response) {
 
@@ -10,11 +11,30 @@ module.exports = async function (request, response) {
 
   const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
 
-const cities = await getCities(
-  allRestaurants.map(element => element.location )
+  const cities = await getCities(
+    allRestaurants.map(element => element.location )
   );
 
-  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId }  );
+  const locations = restaurants.map(restaurant => {
+    return {
+      type: "Feature",
+      geometry: {
+      type: "Point",
+      coordinates: 
+      [
+        restaurant.lat,
+        restaurant.lng
+      ]
+      },
+      properties: {
+        restaurantId: restaurant.id,
+        icon: 'shop'
+      }
+
+    };
+  });
+
+  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, locations: locations }  );
 };
  
 
