@@ -15,26 +15,31 @@ module.exports = async function (request, response) {
     allRestaurants.map(element => element.location )
   );
 
+  console.log(restaurants)
+
   const locations = restaurants.map(restaurant => {
     return {
       type: "Feature",
       geometry: {
-      type: "Point",
-      coordinates: 
-      [
-        restaurant.lat,
-        restaurant.lng
-      ]
+        type: "Point",
+        coordinates: [ restaurant.lng,restaurant.lat]
       },
-      properties: {
+      properties: { 
         restaurantId: restaurant.id,
-        icon: 'shop'
+        name: restaurant.name,
+        type: restaurant.type
       }
-
     };
   });
 
-  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, locations: locations }  );
+  console.log(locations)
+
+  const renderMapboxLocations = {
+    type: "FeatureCollection",
+    features: locations
+  }
+
+  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, renderMapboxLocations: renderMapboxLocations }  );
 };
  
 

@@ -22,6 +22,8 @@ module.exports.up = async function (next) {
   await client.query(`
   CREATE INDEX restaurants_location on restaurants (location);
 
+  CREATE INDEX restaurants_name on restaurants (name);
+
   CREATE INDEX restaurants_rating on restaurants (rating);
 
   `);

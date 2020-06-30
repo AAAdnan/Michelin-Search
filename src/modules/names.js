@@ -12,8 +12,6 @@ async function getNames (names) {
     return namesRestaurants;
 }
 
-
-
 module.exports={
     getNames
 }

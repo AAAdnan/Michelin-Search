@@ -16,7 +16,15 @@ const create = async (restaurant, url, latitude, longitude) => {
 
 }
 
+const find = async(name) => {
+  
+  const results = await Restaurant.find(name);
+
+  return results
+}
+
 module.exports={
     list,
-    create
+    create,
+    find
 }

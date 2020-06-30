@@ -60,6 +60,6 @@ module.exports = {
       const query = name ? sql`SELECT * FROM restaurants WHERE name ILIKE ${name}` : 'SELECT * FROM restaurants'
       const { rows } = await db.query(query)
       return rows;
-    }
+    },
 }
   

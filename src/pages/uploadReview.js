@@ -39,28 +39,42 @@ const cities = await getCities(
 
       const files = request.files
 
-      for (const file of files ) {
-        const { path } = file
+      const review = request.body;
 
-        const newPath = await cloudinary.uploader.upload(path)
+      console.log(review.name)
 
-        urls.push(newPath.url)
 
-        fs.unlinkSync(path)
+
+      try {
+
+        for (const file of files ) {
+          const { path } = file
+  
+          const newPath = await cloudinary.uploader.upload(path)
+  
+          urls.push(newPath.url)
+  
+          fs.unlinkSync(path)
+  
+        }
+
+        const sessionId = request.session.sessionId;
+        const session = sessionId ? await authentication.getSession(sessionId) : {};
+      
+        let userId = session.userId;
+        
+        let newReview = await createReview(review, urls, userId);
+  
+        if(newReview) {
+          return response.render('uploadReview.html', { successMessage: true, userId: session.userId });
+        }
 
       }
-
-      console.log(urls)
-
-      const sessionId = request.session.sessionId;
-      const session = sessionId ? await authentication.getSession(sessionId) : {};
-    
-      let userId = session.userId;
-
-      const review = request.body;
-      
-
-      let newReview = await createReview(review, urls, userId);
-
+      catch (error) {
+        console.error(`POST /login >> Error: ${error.stack}`);
+        return response
+          .status(500)
+          .render('500.html', {message: error.toString()});
+      }
     }
 }
