@@ -4,6 +4,7 @@ const { list } = require('../modules/restaurants');
 const { create } = require('../modules/restaurants');
 const { getCities } = require('../modules/cities');
 const { getNames } = require('../modules/names');
+const { listReview } = require('../modules/reviews');
 const cloudinary = require("cloudinary").v2;
 require('../modules/uploadRestaurants');
 
@@ -27,7 +28,11 @@ require('../modules/uploadRestaurants');
       allRestaurants.map(element => element.name)
     )
 
-    return response.render('reviews.html', { userId, cities , names, restaurants: allRestaurants } );
+    const allReviews  = await listReview()
+
+    console.log(allReviews);
+
+    return response.render('reviews.html', { userId, cities , names, restaurants: allRestaurants, allReviews } );
 
   },
   

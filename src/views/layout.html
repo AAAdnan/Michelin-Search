@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <div class="container w-screen mx-auto bg-pink-200 p5">
+  <div class="container w-screen mx-auto bg-red-300 p5">
     <nav class="flex-row md:justify-between">
       <div class="flex flex-row justify-between">
         <p id="hamburgerbtn" class="md:hidden bg-pink-600">
@@ -27,28 +27,28 @@
       </div>
       <ul class="hidden md:flex md:flex-row pl-4" id="mobileMenu">
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/">Home</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/">Home</a>
         </li>
         {% if not userId %}
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/signup">Sign Up</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/signup">Sign Up</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/login">Login</a>
+          <a class="text-gray-100hover:text-red-800 font-mono" href="/login">Login</a>
         </li>
         {%endif%}
         {% if userId %}
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/logout">Logout</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/logout">Logout</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/uploadReview">Write a Review</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/uploadReview">Write a Review</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/reviews">Reviews</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/reviews">Reviews</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-red-500 hover:text-red-800 font-mono" href="/uploadRestaurant">Restaurant Upload</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/uploadRestaurant">Restaurant Upload</a>
         </li>
         {%endif%}
       </ul>

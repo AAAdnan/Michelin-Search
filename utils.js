@@ -1,8 +1,8 @@
 const baseUrl = 'https://guide.michelin.com/'
 
-const query = 'en/restaurants/3-stars-michelin/2-stars-michelin/1-star-michelin/page/';
+const query = 'en/restaurants/3-stars-michelin/page/';
 
-const itemsPerPage = 20;
+const itemsPerPage = 200;
 
 const ratingsMap = {
   o: 3,

@@ -10,7 +10,9 @@ const list = async (city) => {
 
 const create = async (restaurant, url, latitude, longitude) => {
   
+  console.log(url)
   const newRestaurant = await Restaurant.create(restaurant, url, latitude, longitude)
+
 
   return newRestaurant;
 

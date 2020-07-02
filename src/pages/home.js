@@ -15,7 +15,11 @@ module.exports = async function (request, response) {
     allRestaurants.map(element => element.location )
   );
 
-  console.log(restaurants)
+
+  const restaurantsLength = restaurants.length;
+
+  const locationLat = restaurants.map(restaurant => restaurant.lat).reduce((a,b) => a + b, 0) / restaurantsLength;
+  const locationLng = restaurants.map(restaurant => restaurant.lng).reduce((a,b) => a + b, 0) / restaurantsLength;
 
   const locations = restaurants.map(restaurant => {
     return {
@@ -32,14 +36,14 @@ module.exports = async function (request, response) {
     };
   });
 
-  console.log(locations)
+
 
   const renderMapboxLocations = {
     type: "FeatureCollection",
     features: locations
   }
 
-  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, renderMapboxLocations: renderMapboxLocations }  );
+  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, renderMapboxLocations: renderMapboxLocations, locationLat: locationLat, locationLng: locationLng }  );
 };
  
 

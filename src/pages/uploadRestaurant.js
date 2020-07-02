@@ -30,13 +30,13 @@ require('../modules/cloudinary');
 
       const { latitude, longitude } = loc[0];
 
-      const url = []
+      var url = []
 
       try {
 
         if(request.file) {
           const result = await cloudinary.uploader.upload(request.file.path)
-          const url = result.url;
+          var url = result.url
         }
 
         const restaurant = request.body;
@@ -45,9 +45,11 @@ require('../modules/cloudinary');
 
         const session = sessionId ? await authentication.getSession(sessionId) : {};
 
-        if(await list(restaurant.location) && await find(restaurant.name)){
-          return response.render('uploadRestaurant.html', { duplicateMessage: true, userId: session.userId})
-        }
+        // if(await list(restaurant.location) && await find(restaurant.name)){
+        //   return response.render('uploadRestaurant.html', { duplicateMessage: true, userId: session.userId})
+        // }
+
+        console.log(url)
   
         let newRestaurant = await create(restaurant, url, latitude, longitude)
 

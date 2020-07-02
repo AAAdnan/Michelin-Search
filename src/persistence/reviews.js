@@ -20,5 +20,11 @@ module.exports = {
 
       throw error;
     }
+  },
+  async listReview(name) 
+  {
+      const query = name ? sql`SELECT * FROM reviews WHERE name ILIKE ${name}` : 'SELECT * FROM reviews'
+      const { rows } = await db.query(query)
+      return rows;
   }
 };

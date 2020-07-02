@@ -7,7 +7,7 @@ class Scraper {
   constructor() {
     this.rateLimiterDelay = 1500;
     this.restaurants = [];
-    this.totalPages = 1;
+    this.totalPages = 10;
   }
 
   async run () {

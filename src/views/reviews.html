@@ -7,14 +7,19 @@
   <!DOCTYPE html>
 
   <section class="container mx-auto mt-10 pt-10 container bg-white shadow-md rounded">
+    {% if allReviews|length %}
+    {% for review in allReviews %}
     <div class="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 m-8 rounded overflow-hidden shadow-lg" >
-      <img alt="Sunset in the mountains">
+      <img src="{{ review.img}}" {alt="Sunset in the mountains">
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">Review</div>
-        <a target="_blank" class="text-gray-700 text-base">
-          review link
-        </a>
+        <p>{{ review.review }}</p>
+        <p>{{ review.rating }}</p>
+        <p>{{ review.courses }}</p>
+        <p>{{ review.meals }}</p>
       </div>
     </div>
+    {% endfor %} 
+    {%endif %}
   </section>
 {% endblock %}
