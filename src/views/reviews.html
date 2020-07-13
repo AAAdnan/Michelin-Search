@@ -1,25 +1,52 @@
 {% extends "layout.html" %}
 
-{% block title %}About - Express Server-Render Starter{% endblock %}
-{% block description %}About - Express Server-Render Starter{% endblock %}
 
 {% block content %}
   <!DOCTYPE html>
 
-  <section class="container mx-auto mt-10 pt-10 container bg-white shadow-md rounded">
-    {% if allReviews|length %}
-    {% for review in allReviews %}
-    <div class="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 m-8 rounded overflow-hidden shadow-lg" >
-      <img src="{{ review.img}}" {alt="Sunset in the mountains">
+  <section class="container h-screen mx-auto overflow-auto m-12 pt-10 container bg-white shadow-md rounded">
+    <article class="flex flex-col items-center self-center w-full border-2 border-white p-6 bg-red-300 shadow-lg">
+      <h1 class=" mx-auto pt-6 text-gray-100 text-5xl font-mono ">Reviews</h1>
+    </article>
+    <div class="flex flex-col items-center">
+    {% if reviews|length %}
+    {% for review in reviews %}
+    <div class="w-1/2 flex flex-col m-8 rounded overflow-hidden shadow-lg" >
+      <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
+        <h3 class=" mx-auto pt-6 text-gray-100 text-5xl font-mono ">{{ review.restaurant_id  }}</h1>
+      </article>
       <div class="px-6 py-4">
-        <div class="font-bold text-xl mb-2">Review</div>
         <p>{{ review.review }}</p>
         <p>{{ review.rating }}</p>
-        <p>{{ review.courses }}</p>
+        <p>{{ review.courses }} courses</p>
         <p>{{ review.meals }}</p>
       </div>
+      <img src="{{ review.images[0]}}" alt="Sunset in the mountains">
+      <div class="flex flex-row items-center justify-center">
+        <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 w-1/2 rounded-full">Delete</button>
+      </div>
+    </div>
     </div>
     {% endfor %} 
     {%endif %}
-  </section>
+    <div class="flex flex-row space-x-4 items-center justify-center m-10 p-12">
+      <a href="?page={{ page + 1 if page<totalPages else 1}}"><button id="next-button" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full">Next</button></a>
+      <a href="?page={{ pageInt - 1 if pageInt>1 else 1 }}"><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Previous</button></a>
+      <a href="?page=1" ><button class="bg-transparent hover:bg-teal-500 text-teal-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">First</button></a>
+      <a href="?page={{ totalPages }}"><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Last</button></a>
+    </div>
+   </section>
+
+   <script>
+
+    const totalPages = {{ totalPages | dump | safe }}
+
+    const totalPagesInt = parseInt(totalPages, 10);
+
+    const page = {{ page | dump | safe }}
+
+    const pageInt = parseInt(page, 10);
+
+   </script>
 {% endblock %}
+

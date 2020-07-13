@@ -42,6 +42,7 @@
     "node-geocoder": "^3.27.0",
     "nunjucks": "^3.2.1",
     "pg": "^8.0.2",
+    "pikaday": "^1.8.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "sql-template-strings": "^2.2.2",

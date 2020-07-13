@@ -5,6 +5,8 @@ const { create } = require('../modules/restaurants');
 const { getCities } = require('../modules/cities');
 const { getNames } = require('../modules/names');
 const { listReview } = require('../modules/reviews');
+const { totalReviews } = require('../modules/reviews');
+const { listRestaurantNames } = require('../modules/reviews');
 const cloudinary = require("cloudinary").v2;
 require('../modules/uploadRestaurants');
 
@@ -16,23 +18,17 @@ require('../modules/uploadRestaurants');
 
     let userId = session.userId;
 
-    const { city } = request.query;
+    const [ allRestaurants ] = await Promise.all([list()])
 
-    const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
+    const { page = 1 } = request.query;
 
-    const cities = await getCities(
-      allRestaurants.map(element => element.location )
-    );
+    const reviews  = await listReview(page)
 
-    const names = await getNames(
-      allRestaurants.map(element => element.name)
-    )
+    console.log(reviews)
 
-    const allReviews  = await listReview()
+    const totalPages = await totalReviews();
 
-    console.log(allReviews);
-
-    return response.render('reviews.html', { userId, cities , names, restaurants: allRestaurants, allReviews } );
+    return response.render('reviews.html', { userId, restaurants: allRestaurants, reviews, page, totalPages } );
 
   },
   

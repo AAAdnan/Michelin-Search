@@ -46,7 +46,7 @@ const upload = multer({
 
 async function createReview(review, urls, userId) {
 
-  const { description, courses, meals, rating } = review;
+  const { courses, meals, rating, description } = review;
 
   const restaurant = review.name;
 

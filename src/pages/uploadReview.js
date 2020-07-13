@@ -44,7 +44,6 @@ const cities = await getCities(
       console.log(review.name)
 
 
-
       try {
 
         for (const file of files ) {

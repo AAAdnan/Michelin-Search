@@ -18,8 +18,21 @@ module.exports = async function (request, response) {
 
   const restaurantsLength = restaurants.length;
 
-  const locationLat = restaurants.map(restaurant => restaurant.lat).reduce((a,b) => a + b, 0) / restaurantsLength;
-  const locationLng = restaurants.map(restaurant => restaurant.lng).reduce((a,b) => a + b, 0) / restaurantsLength;
+  let locationLat;
+  let locationLng;
+  let zoom;
+
+  if(!city) {
+    locationLat = 51.5;
+    locationLng = 0.1278;
+    zoom = 1.5;
+  } else {
+    zoom = 11;
+    locationLat = restaurants.map(restaurant => restaurant.lat).reduce((a,b) => a + b, 0) / restaurantsLength;
+    locationLng = restaurants.map(restaurant => restaurant.lng).reduce((a,b) => a + b, 0) / restaurantsLength;
+
+  }
+  
 
   const locations = restaurants.map(restaurant => {
     return {
@@ -43,7 +56,7 @@ module.exports = async function (request, response) {
     features: locations
   }
 
-  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, renderMapboxLocations: renderMapboxLocations, locationLat: locationLat, locationLng: locationLng }  );
+  return response.render('home.html', { selectedCity: city, restaurants: restaurants, cities, userId: session && session.userId, renderMapboxLocations: renderMapboxLocations, locationLat: locationLat, locationLng: locationLng, zoom: zoom }  );
 };
  
 

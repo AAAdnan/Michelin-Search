@@ -12,9 +12,11 @@
 
   <meta name="theme-color" content="#fafafa">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
   <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 </head>
 
 <body>
@@ -34,7 +36,7 @@
           <a class="text-gray-100 hover:text-red-800 font-mono" href="/signup">Sign Up</a>
         </li>
         <li class="mr-6 py-4">
-          <a class="text-gray-100hover:text-red-800 font-mono" href="/login">Login</a>
+          <a class="text-gray-100 hover:text-red-800 font-mono" href="/login">Login</a>
         </li>
         {%endif%}
         {% if userId %}

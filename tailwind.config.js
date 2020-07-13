@@ -8,6 +8,5 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    require('@tailwindcss/custom-forms')
-  ]
+    require('@tailwindcss/custom-forms', './node_modules/pikaday/css/pikaday.css')  ]
 };
