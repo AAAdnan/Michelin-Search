@@ -12,9 +12,9 @@ module.exports.up = async function (next) {
     courses INT,
     meals text,
     rating INT,
+    date date,
     images text[]
   );
- 
   `);
 
   await client.query(`

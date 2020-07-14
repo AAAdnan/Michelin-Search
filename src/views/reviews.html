@@ -8,24 +8,40 @@
     <article class="flex flex-col items-center self-center w-full border-2 border-white p-6 bg-red-300 shadow-lg">
       <h1 class=" mx-auto pt-6 text-gray-100 text-5xl font-mono ">Reviews</h1>
     </article>
-    <div class="flex flex-col items-center">
+    <div class="flex items-center">
+      <label for="site-search">Search reviews</label>
+      <input type="search" id="site-search" name="q" aria-label="Search through site content">
+    </div>
+<button>Search</button>
     {% if reviews|length %}
     {% for review in reviews %}
-    <div class="w-1/2 flex flex-col m-8 rounded overflow-hidden shadow-lg" >
-      <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
-        <h3 class=" mx-auto pt-6 text-gray-100 text-5xl font-mono ">{{ review.restaurant_id  }}</h1>
-      </article>
-      <div class="px-6 py-4">
-        <p>{{ review.review }}</p>
-        <p>{{ review.rating }}</p>
-        <p>{{ review.courses }} courses</p>
-        <p>{{ review.meals }}</p>
+      <div class="flex flex-col items-center">
+      <div class="w-1/2 flex flex-col m-8 rounded overflow-hidden shadow-lg" >
+        <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
+          <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ review.restaurant_id  }}</h1>
+        </article>
+        <div class="bg-yellow-400">
+          <section class="bg-orange-300">
+            <p class="px-8 py-4">{{ review.date }}</p>
+          </section>
+          <section>
+            <p class="px-8 py-4">{{ review.review }}</p>
+          </section>
+          <section class="bg-purple-300" >
+            <p class="px-8 py-4 text-gray-100"">{{ review.rating }} star</p>
+          </section>
+          <section >
+            <p class="px-8 py-4">{{ review.courses }} course</p>
+          </section>
+          <section class="bg-orange-300">
+            <p class="px-8 py-4">Eaten: {{ review.meals }}</p>
+          </section>
+        </div>
+        <img src="{{ review.images[0]}}" alt="Sunset in the mountains">
+        <div class="flex flex-row items-center justify-center">
+          <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 w-1/2 rounded-full">Delete</button>
+        </div>
       </div>
-      <img src="{{ review.images[0]}}" alt="Sunset in the mountains">
-      <div class="flex flex-row items-center justify-center">
-        <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 w-1/2 rounded-full">Delete</button>
-      </div>
-    </div>
     </div>
     {% endfor %} 
     {%endif %}

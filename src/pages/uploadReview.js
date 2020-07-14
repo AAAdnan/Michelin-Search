@@ -41,8 +41,9 @@ const cities = await getCities(
 
       const review = request.body;
 
-      console.log(review.name)
-
+      const { date } = review;
+      
+      const conversion = Date.now(date);
 
       try {
 
@@ -62,7 +63,7 @@ const cities = await getCities(
       
         let userId = session.userId;
         
-        let newReview = await createReview(review, urls, userId);
+        let newReview = await createReview(review, date, urls, userId);
   
         if(newReview) {
           return response.render('uploadReview.html', { successMessage: true, userId: session.userId });

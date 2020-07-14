@@ -72,8 +72,8 @@
             </select>
           </div>
           <div class="w-full px-3 mt-8 mb-8">
-            <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mt-8 mb-8" for="review">Date</label>
-            <input type="text" id="datepicker">
+            <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mt-8 mb-8" for="date">Date</label>
+            <input type="text" name="date" id="datepicker">
           </div>
           <div class="w-full px-3 mt-8 mb-8">
             <label class="block uppercase tracking-wide text-gray-700 text-s font-bold mb-2" for="meals">Meals</label>
@@ -104,8 +104,30 @@
     </div>
   </div>
 <script>
-  var picker = new Pikaday({ field: document.getElementById('datepicker') });
 
+  var picker = new Pikaday({
+    field: document.getElementById('datepicker'),
+    toString(date, format) {
+        // you should do formatting based on the passed format,
+        // but we will just return 'D/M/YYYY' for simplicity
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${year}/${month}/${day}`;
+    },
+    parse(dateString, format) {
+        // dateString is the result of `toString` method
+        const parts = dateString.split('/');
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+        return new Date(year, month, day);
+    }
+});
+
+  const d = new Date();
+
+  picker.setDate(d)
 
   const inpFile = document.getElementById("inpFile");
   const customBtn = document.getElementById("custom-button");

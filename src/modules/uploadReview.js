@@ -44,7 +44,7 @@ const upload = multer({
   }
 }).array('images', 6);
 
-async function createReview(review, urls, userId) {
+async function createReview(review, date, urls, userId) {
 
   const { courses, meals, rating, description } = review;
 
@@ -58,7 +58,7 @@ async function createReview(review, urls, userId) {
 
   let newRestaurant = newRestaurantArray[0].id;
 
-  const newReview = await Review.create(newRestaurant, userId, description, courses, meals, rating, urls)
+  const newReview = await Review.create(newRestaurant, userId, description, courses, meals, rating, date, urls)
 
   return newReview;
 };
