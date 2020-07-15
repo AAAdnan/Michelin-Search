@@ -11,12 +11,17 @@ const listReview = async (page) => {
 
   const restaurant_ids = results.map(result => result.restaurant_id)
 
-  const restaurant_names = await Review.findRestaurantName();
-
-  console.log(restaurant_names)
 
   return results;
 } 
+
+const restaurantReviewNames = async () => {
+
+  const restaurant_names = await Review.findRestaurantName();
+
+  return restaurant_names;
+
+}
 
 const totalReviews = async () => {
 
@@ -30,5 +35,6 @@ const totalReviews = async () => {
 
 module.exports={
    listReview,
+   restaurantReviewNames,
    totalReviews
 }

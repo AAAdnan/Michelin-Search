@@ -4,7 +4,7 @@ const { list } = require('../modules/restaurants');
 const { create } = require('../modules/restaurants');
 const { getCities } = require('../modules/cities');
 const { getNames } = require('../modules/names');
-const { listReview } = require('../modules/reviews');
+const { listReview, restaurantReviewNames } = require('../modules/reviews');
 const { totalReviews } = require('../modules/reviews');
 const { listRestaurantNames } = require('../modules/reviews');
 const cloudinary = require("cloudinary").v2;
@@ -24,11 +24,13 @@ require('../modules/uploadRestaurants');
 
     const reviews  = await listReview(page)
 
-    console.log(reviews)
+    const restaurantNames = await restaurantReviewNames();
+
+    console.log(restaurantNames)
 
     const totalPages = await totalReviews();
 
-    return response.render('reviews.html', { userId, restaurants: allRestaurants, reviews, page, totalPages } );
+    return response.render('reviews.html', { userId, restaurants: allRestaurants, reviews, page, totalPages, restaurantNames } );
 
   },
   

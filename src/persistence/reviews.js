@@ -30,15 +30,21 @@ module.exports = {
   {
       const pageSize = 4;
       const offset = (page - 1)*pageSize;
-      const query = `SELECT * FROM reviews OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
+      const query = `SELECT * FROM reviews ORDER BY date ASC OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
       const { rows } = await db.query(query);
       return rows;
   },
+  async deleteReview(id) {
+
+    const query = `DELETE FROM reviews WHERE ${id} = review.id`
+
+    await db.query(query)
+
+  },
   async findRestaurantName()
   {
-    const query = `SELECT name, (restaurants.id) FROM restaurants LEFT JOIN reviews ON reviews.restaurant_id = restaurants.id`
+    const query = `SELECT name, (restaurants.id) FROM restaurants INNER JOIN reviews ON reviews.restaurant_id = restaurants.id`
     const { rows } = await db.query(query);
     return rows;
   }
-
 };
