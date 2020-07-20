@@ -22,28 +22,37 @@ module.exports = {
     }
   },
   async totalReviews(){
-    const query = `SELECT * FROM reviews`;
+    const query = sql`SELECT * FROM reviews`;
     const { rows } = await db.query(query);
-    return rows.length;
+    return rows
   },
   async listReview(page) 
   {
       const pageSize = 4;
       const offset = (page - 1)*pageSize;
-      const query = `SELECT * FROM reviews ORDER BY date ASC OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
+      const query = sql`SELECT *, restaurants.name AS restaurantName FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id ORDER BY date ASC OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
       const { rows } = await db.query(query);
       return rows;
   },
-  async deleteReview(id) {
+  async selectReview(name){
+    const query = sql`SELECT * FROM reviews LEFT JOIN restaurants ON restaurants.id = reviews.restaurant_id WHERE ${name} = restaurants.name`;
+    const { rows } = await db.query(query);
+    return rows;
+  },
+  async deleteReview(id, userId) {
 
-    const query = `DELETE FROM reviews WHERE ${id} = review.id`
+    const query = sql`DELETE FROM reviews WHERE id=${id}`;
 
-    await db.query(query)
+    const output = await db.query(query)
+
+    console.log(output)
+
+    return output.rowCount;
 
   },
   async findRestaurantName()
   {
-    const query = `SELECT name, (restaurants.id) FROM restaurants INNER JOIN reviews ON reviews.restaurant_id = restaurants.id`
+    const query = sql`SELECT name, (restaurants.id) FROM restaurants INNER JOIN reviews ON reviews.restaurant_id = restaurants.id`
     const { rows } = await db.query(query);
     return rows;
   }

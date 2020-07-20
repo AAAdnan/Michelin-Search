@@ -8,24 +8,36 @@
     <article class="flex flex-col items-center self-center w-full border-2 border-white p-6 bg-red-300 shadow-lg">
       <h1 class=" mx-auto pt-6 text-gray-100 text-5xl font-mono ">Reviews</h1>
     </article>
-    <div class="flex flex-col items-center px-3 m-8 md:mb-0">
-      <label class="whitespace-no-wrap block uppercase tracking-wide text-gray-700 text-2xl text-red-300 font-bold mb-2" for="search">Search Restaurant</label>
+
+    {%if selectedReviews|length %}
+    <div>
+      hello
+    </div>
+
+   {%endif %}
+
+    {% if not selectedReview|length and reviews|length and userId %}
+    <div class="flex flex-col items-center px-3 m-8 border-4 border-teal-300 md:mb-0">
+      <label class="whitespace-no-wrap block uppercase tracking-wide text-gray-700 text-3xl text-red-300 font-bold mb-2 py-8" for="search">Search Restaurant</label>
         <form class="flex flex-col items-center">
         <select class="appearance-none bg-white border border-gray-400 hover:border-gray-500 px-4 py-4 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline m-8" name="restaurant">
           <option default>Select Restaurant</option>
               {% for name in restaurantNames %}
-              <option value="{{ name.name }}" selected >{{ name.name }}</option>
+              {%if name === selectedRestaurant %}
+              <option value="{{ name }}" selected >{{ name }} </option>
+              {%else %}
+              <option value="{{ name }}">{{ name }}</option>
+              {%endif %}
             {% endfor %} 
         </select>
       <button class="w-full m-8 bg-orange-400 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Search</button>
     </form>
     </div>
-    {% if reviews|length %}
     {% for review in reviews %}
-      <div class="grid grid-cols-3 items-center">
-      <div class="flex flex-col m-8 rounded overflow-hidden shadow-lg" >
+    <div class="flex justify-center">
+      <div class="flex flex-col w-1/2 m-8 rounded overflow-hidden shadow-lg" >
         <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
-          <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ review.restaurant_id  }}</h1>
+          <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ review.restaurantname }}</h1>
         </article>
         <div class="bg-yellow-400">
           <section class="bg-orange-300">
@@ -35,7 +47,7 @@
             <p class="px-8 py-4">{{ review.review }}</p>
           </section>
           <section class="bg-purple-300" >
-            <p class="px-8 py-4 text-gray-100"">{{ review.rating }} star</p>
+            <p class="px-8 py-4 text-gray-100">{{ review.rating }} star</p>
           </section>
           <section >
             <p class="px-8 py-4">{{ review.courses }} course</p>
@@ -46,35 +58,30 @@
         </div>
         <img src="{{ review.images[0]}}" alt="Sunset in the mountains">
         <div class="flex flex-row items-center justify-center">
-          <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 w-1/2 rounded-full" id="delete" value={{ review.id }}>Delete</button>
+          <form action="/reviews" method="post">
+            <input type="hidden" id="recordID" name="recordID" value="{{ review.id }}"/>
+            <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 rounded-full" type='submit'>Delete</button>
+          </form>
         </div>
       </div>
     </div>
     {% endfor %} 
-    {%endif %}
     <div class="flex flex-row space-x-4 items-center justify-center m-10 p-12">
-      <a href="?page={{ page + 1 if page<totalPages else 1}}"><button id="next-button" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full">Next</button></a>
+      <a href="?page={{ pageInt + 1 if page<totalPages else 1}}"><button id="next-button" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full">Next</button></a>
       <a href="?page={{ pageInt - 1 if pageInt>1 else 1 }}"><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Previous</button></a>
       <a href="?page=1" ><button class="bg-transparent hover:bg-teal-500 text-teal-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">First</button></a>
       <a href="?page={{ totalPages }}"><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Last</button></a>
     </div>
    </section>
-
+   {%endif %}
    <script>
 
-    const button = document.getElementById('delete');
+    let myField;
 
-    button.addEventListener('onClick', ()=> {
-      console.log(button.value);
-    })
-
-    const totalPages = {{ totalPages | dump | safe }}
-
-    const totalPagesInt = parseInt(totalPages, 10);
-
-    const page = {{ page | dump | safe }}
-
-    const pageInt = parseInt(page, 10);
+    function printIt() {
+    let recordID = document.getElementById('recordID').value
+      console.log(recordID);
+    }
 
    </script>
 {% endblock %}

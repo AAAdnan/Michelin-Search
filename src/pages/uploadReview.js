@@ -23,8 +23,8 @@ module.exports = {
 
   const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
 
-const cities = await getCities(
-  allRestaurants.map(element => element.location )
+  const cities = await getCities(
+    allRestaurants.map(element => element.location )
   );
 
   const names = await getNames(
@@ -60,13 +60,28 @@ const cities = await getCities(
 
         const sessionId = request.session.sessionId;
         const session = sessionId ? await authentication.getSession(sessionId) : {};
+
+        const { city } = request.query;
+
+        const [ restaurants, allRestaurants ] = await Promise.all( [list(city), list()] )
+
+        const cities = await getCities(
+          allRestaurants.map(element => element.location )
+        );
+
+        const names = await getNames(
+          allRestaurants.map(element => element.name)
+        );
+
       
         let userId = session.userId;
+
+
         
         let newReview = await createReview(review, date, urls, userId);
   
         if(newReview) {
-          return response.render('uploadReview.html', { successMessage: true, userId: session.userId });
+          return response.render('uploadReview.html', { successMessage: true, userId, names, restaurants: allRestaurants });
         }
 
       }

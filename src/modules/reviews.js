@@ -4,37 +4,48 @@ const listReview = async (page) => {
 
   const results = await Review.listReview(page);
 
-  // const restaurant_names = restaurant_ids.forEach(async function(id){
-  //   const promises = await Review.findRestaurantName();
-  //   console.log(promises)
-  // })
-
-  const restaurant_ids = results.map(result => result.restaurant_id)
-
-
   return results;
 } 
 
+const selectReview = async (name) => {
+  const selectedReview = await Review.selectReview(name);
+
+  return selectedReview;
+}
+
+
 const restaurantReviewNames = async () => {
 
-  const restaurant_names = await Review.findRestaurantName();
+  const restaurants = await Review.findRestaurantName();
 
-  return restaurant_names;
+  console.log('this is restaurants' + restaurants)
+
+  let namesSet = new Set(restaurants.map(item => item.name));
+
+  let namesSetArray = Array.from(namesSet);
+
+  return namesSetArray
 
 }
 
 const totalReviews = async () => {
 
-  const totalReviewNumber = await Review.totalReviews();
+  const totalReviews = await Review.totalReviews();
 
-  const lastPage = Math.round(totalReviewNumber/4)
-  
-  return lastPage;
+  return totalReviews;
+
+}
+
+const deleteReview = async (id, userId) => {
+
+  return Review.deleteReview(id, userId);
 
 }
 
 module.exports={
    listReview,
    restaurantReviewNames,
+   deleteReview,
+   selectReview,
    totalReviews
 }

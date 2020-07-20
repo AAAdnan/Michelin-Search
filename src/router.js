@@ -26,6 +26,7 @@ router.post('/uploadReview', multerReview, uploadReview.post)
 router.post('/signup', signup.post)
 router.post('/login', login.post);
 router.get('/reviews', reviews.get)
+router.post('/reviews', reviews.post)
 router.post('/upload', upload.post)
 router.use((request, response) => {
   return response.status(404).render('404.html');
