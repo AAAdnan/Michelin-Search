@@ -35,7 +35,7 @@ module.exports = {
       return rows;
   },
   async selectReview(name){
-    const query = sql`SELECT * FROM reviews LEFT JOIN restaurants ON restaurants.id = reviews.restaurant_id WHERE ${name} = restaurants.name`;
+    const query = sql`SELECT *, restaurants.name AS restaurantName FROM reviews LEFT JOIN restaurants ON restaurants.id = reviews.restaurant_id WHERE ${name} = restaurants.name`;
     const { rows } = await db.query(query);
     return rows;
   },

@@ -18,8 +18,6 @@ const restaurantReviewNames = async () => {
 
   const restaurants = await Review.findRestaurantName();
 
-  console.log('this is restaurants' + restaurants)
-
   let namesSet = new Set(restaurants.map(item => item.name));
 
   let namesSetArray = Array.from(namesSet);
@@ -28,11 +26,11 @@ const restaurantReviewNames = async () => {
 
 }
 
-const totalReviews = async () => {
+const totalReviewsNumber = async () => {
 
   const totalReviews = await Review.totalReviews();
 
-  return totalReviews;
+  return Math.round((totalReviews.length)/4);
 
 }
 
@@ -47,5 +45,5 @@ module.exports={
    restaurantReviewNames,
    deleteReview,
    selectReview,
-   totalReviews
+   totalReviewsNumber
 }

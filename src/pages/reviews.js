@@ -4,7 +4,7 @@ const { list } = require('../modules/restaurants');
 const { create } = require('../modules/restaurants');
 const { getCities } = require('../modules/cities');
 const { getNames } = require('../modules/names');
-const { listReview, restaurantReviewNames, deleteReview, totalReviews, selectReview } = require('../modules/reviews');
+const { listReview, restaurantReviewNames, deleteReview, totalReviewsNumber, selectReview } = require('../modules/reviews');
 const { listRestaurantNames } = require('../modules/reviews');
 const cloudinary = require("cloudinary").v2;
 require('../modules/uploadRestaurants');
@@ -27,8 +27,6 @@ require('../modules/uploadRestaurants');
 
     const reviews  = await listReview(pageInt)
 
-    const total_reviews = await totalReviews();
-
     const { restaurant } = request.query;
 
     const selectedReviews = await selectReview(restaurant);
@@ -41,9 +39,9 @@ require('../modules/uploadRestaurants');
 
     const restaurantNames = await restaurantReviewNames();
 
-    const totalPages = await totalReviews();
+    const totalPages = await totalReviewsNumber();
 
-    return response.render('reviews.html', { userId, restaurants: allRestaurants, reviews, pageInt, totalPages, restaurantNames, noReviews, selectReviews: selectedReviews, selectedRestaurant: restaurant } );
+    return response.render('reviews.html', { userId, restaurants: allRestaurants, reviews, pageInt, totalPages: totalPages , restaurantNames, noReviews, selectedReviews: selectedReviews, selectedRestaurant: restaurant } );
 
   },
 
