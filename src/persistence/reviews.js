@@ -26,26 +26,29 @@ module.exports = {
     const { rows } = await db.query(query);
     return rows
   },
-  async listReview(page) 
+  async listReview(page, userId) 
   {
       const pageSize = 4;
       const offset = (page - 1)*pageSize;
-      const query = sql`SELECT *, restaurants.name AS restaurantName FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id ORDER BY date ASC OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
+      const query = sql`SELECT reviews.review, reviews.rating, reviews.date, reviews.courses, reviews.meals, reviews.id, reviews.images, restaurants.name AS restaurantName FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id WHERE ${userId} = reviews.user_id ORDER BY date ASC OFFSET ${offset} ROWS FETCH NEXT 4 ROWS ONLY`;
       const { rows } = await db.query(query);
       return rows;
   },
-  async selectReview(name){
-    const query = sql`SELECT *, restaurants.name AS restaurantName FROM reviews LEFT JOIN restaurants ON restaurants.id = reviews.restaurant_id WHERE ${name} = restaurants.name`;
+  async selectReview(name, rating){
+    const query = sql`SELECT reviews.review, reviews.rating, reviews.date, reviews.courses, reviews.meals, reviews.id, reviews.images, restaurants.name FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id WHERE ${name} = restaurants.name`;
     const { rows } = await db.query(query);
     return rows;
   },
-  async deleteReview(id, userId) {
+  async selectRating(rating){
+    const query = sql`SELECT reviews.review, reviews.rating, reviews.date, reviews.courses, reviews.meals, reviews.id, reviews.images FROM reviews WHERE ${rating} = reviews.rating`;
+    const { rows } = await db.query(query);
+    return rows;
+  },
+  async deleteReview(id) {
 
     const query = sql`DELETE FROM reviews WHERE id=${id}`;
 
     const output = await db.query(query)
-
-    console.log(output)
 
     return output.rowCount;
 

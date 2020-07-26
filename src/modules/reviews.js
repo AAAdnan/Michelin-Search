@@ -1,8 +1,25 @@
 const Review  = require('../persistence/reviews');
 
-const listReview = async (page) => {
+const totalReviewRatings = async() => {
 
-  const results = await Review.listReview(page);
+  const totalResults = await Review.totalReviews();
+
+  let ratingSet = new Set(totalResults.map(item => item.rating));
+
+  let ratingSetArray = Array.from(ratingSet);
+
+  return ratingSetArray;
+}
+
+const selectRating = async(rating) => {
+  const selectedRating = await Review.selectRating(rating);
+
+  return selectedRating;
+}
+
+const listReview = async (page, userId) => {
+
+  const results = await Review.listReview(page,userId);
 
   return results;
 } 
@@ -12,7 +29,6 @@ const selectReview = async (name) => {
 
   return selectedReview;
 }
-
 
 const restaurantReviewNames = async () => {
 
@@ -25,6 +41,19 @@ const restaurantReviewNames = async () => {
   return namesSetArray
 
 }
+
+const restaurantReviewRatings = async () => {
+
+  const ratings = await Review.findRestaurantName();
+
+  let namesSet = new Set(restaurants.map(item => item.name));
+
+  let namesSetArray = Array.from(namesSet);
+
+  return namesSetArray
+
+}
+
 
 const totalReviewsNumber = async () => {
 
@@ -45,5 +74,7 @@ module.exports={
    restaurantReviewNames,
    deleteReview,
    selectReview,
-   totalReviewsNumber
+   selectRating,
+   totalReviewsNumber,
+   totalReviewRatings
 }
