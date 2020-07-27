@@ -10,13 +10,6 @@ const totalReviewRatings = async() => {
 
   return ratingSetArray;
 }
-
-const selectRating = async(rating) => {
-  const selectedRating = await Review.selectRating(rating);
-
-  return selectedRating;
-}
-
 const listReview = async (page, userId) => {
 
   const results = await Review.listReview(page,userId);
@@ -24,8 +17,8 @@ const listReview = async (page, userId) => {
   return results;
 } 
 
-const selectReview = async (name) => {
-  const selectedReview = await Review.selectReview(name);
+const selectReview = async (name, rating) => {
+  const selectedReview = await Review.selectReview(name, rating);
 
   return selectedReview;
 }
@@ -74,7 +67,6 @@ module.exports={
    restaurantReviewNames,
    deleteReview,
    selectReview,
-   selectRating,
    totalReviewsNumber,
    totalReviewRatings
 }

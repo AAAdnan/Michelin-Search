@@ -37,12 +37,12 @@
     </form>
     </div>
     {%endif %}
-    {% if not selectedRating and selectedReviews|length and userId  %}
+    {% if selectedReviews|length and userId  %}
     {% for review in selectedReviews %}
     <div class="flex justify-center">
       <div class="flex flex-col w-1/2 m-8 rounded overflow-hidden shadow-lg" >
         <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
-          <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ review.restaurantname }}</h1>
+          <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ review.name }}</h1>
         </article>
         <div class="bg-yellow-400">
           <section class="bg-orange-300">
@@ -72,42 +72,7 @@
     </div>
     {% endfor %} 
    {%endif %}
-   {% if not selectedReviews and selectedRating|length and userId  %}
-   {% for rating in selectedRatings %}
-   <div class="flex justify-center">
-     <div class="flex flex-col w-1/2 m-8 rounded overflow-hidden shadow-lg" >
-       <article class="flex items-center self-center w-full border-2 border-white p-6 bg-teal-300 shadow-lg">
-         <h3 class=" mx-auto pt-6 text-gray-100 text-3xl font-mono ">{{ rating.restaurantname }}</h1>
-       </article>
-       <div class="bg-yellow-400">
-         <section class="bg-orange-300">
-           <p class="px-8 py-4">{{ rating.date }}</p>
-         </section>
-         <section>
-           <p class="px-8 py-4">{{ rating.review }}</p>
-         </section>
-         <section class="bg-purple-300" >
-           <p class="px-8 py-4 text-gray-100">{{ rating.rating }} star</p>
-         </section>
-         <section >
-           <p class="px-8 py-4">{{ rating.courses }} course</p>
-         </section>
-         <section class="bg-orange-300">
-           <p class="px-8 py-4">Eaten: {{ rating.meals }}</p>
-         </section>
-       </div>
-       <img src="{{ review.images[0]}}" alt="Sunset in the mountains">
-       <div class="flex flex-row items-center justify-center">
-         <form action="/reviews" method="post">
-           <input type="hidden" id="recordID" name="recordID" value="{{ review.id }}"/>
-           <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 m-8 rounded-full" type='submit'>Delete</button>
-         </form>
-       </div>
-     </div>
-   </div>
-   {% endfor %} 
-  {%endif %}
-   {% if not selectedReviews|length and not selectedRatings|length and userId %}
+   {% if not selectedReviews|length and userId %}
     {% for review in reviews %}
     <div class="flex justify-center">
       <div class="flex flex-col w-1/2 m-8 rounded overflow-hidden shadow-lg" >
