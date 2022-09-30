@@ -27,9 +27,9 @@ require('../modules/uploadRestaurants');
 
     const reviews  = await listReview(pageInt, userId);
 
-    const { restaurant, rating } = request.query;
+    const { restaurant = '', rating = '' } = request.query;
 
-    const selectedReviews = await selectReview(restaurant || '', rating || '');
+    const selectedReviews = await selectReview(restaurant , rating);
 
     const restaurantNames = await restaurantReviewNames();
 

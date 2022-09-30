@@ -35,7 +35,17 @@ module.exports = {
       return rows;
   },
   async selectReview(name, rating){
-    const query = sql`SELECT reviews.review, reviews.rating, reviews.date, reviews.courses, reviews.meals, reviews.id, reviews.images, restaurants.name FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id WHERE (${name} = restaurants.name AND ${rating} = reviews.rating) OR ${rating} = reviews.rating OR ${name} = restaurants.name`;
+    console.log(rating, typeof rating)
+    const query = sql`SELECT reviews.review, reviews.rating, reviews.date, reviews.courses, reviews.meals, reviews.id, reviews.images, restaurants.name FROM reviews LEFT JOIN restaurants ON reviews.restaurant_id = restaurants.id ` ;
+    if(name && !rating) {
+      query.append(sql`WHERE restaurants.name = ${name}`)
+    }
+    if(rating && !name) {
+      query.append(sql`WHERE reviews.rating = ${rating}`)
+    }
+    if(name && rating) {
+      query.append(sql`WHERE restaurants.name = ${name} AND reviews.rating = ${rating}`)
+    }
     const { rows } = await db.query(query);
     return rows;
   },

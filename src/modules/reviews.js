@@ -18,7 +18,11 @@ const listReview = async (page, userId) => {
 } 
 
 const selectReview = async (name, rating) => {
-  const selectedReview = await Review.selectReview(name, rating);
+
+
+  const ratingInteger = parseInt(rating, 10);
+
+  const selectedReview = await Review.selectReview(name, ratingInteger);
 
   return selectedReview;
 }
